@@ -11,7 +11,7 @@ export const createFile = async (filePath, fileText) => {
         throw new Error('FS Operation failed');
     }
 
-    fs.writeFileSync(filePath, fileText);
+    return fs.writeFileSync(filePath, fileText);
 };
 
 export const copyDirectory = async (srcDir, distDir) => {
@@ -28,11 +28,11 @@ export const copyDirectory = async (srcDir, distDir) => {
 
     if (isDirectory) {
         fs.mkdirSync(distDir);
-        fs.readdirSync(srcDir).forEach((childItemName) => {
+        return fs.readdirSync(srcDir).forEach((childItemName) => {
             copyDirectory(path.join(srcDir, childItemName), path.join(distDir, childItemName));
         });
     } else {
-        fs.copyFileSync(srcDir, distDir);
+        return fs.copyFileSync(srcDir, distDir);
     }
 };
 
@@ -43,7 +43,7 @@ export const removeFile = async (filePath) => {
         throw new Error('FS Operation failed');
     }
 
-    await fs.unlinkSync(filePath);
+    return fs.unlinkSync(filePath);
 }
 
 export const listFiles = async (filesDirPath) => {
@@ -53,7 +53,7 @@ export const listFiles = async (filesDirPath) => {
         throw new Error('FS Operation failed');
     }
 
-    fs.readdir(filesDirPath, (err, files) => {
+    return fs.readdir(filesDirPath, (err, files) => {
         files.forEach((fileName) => {
             console.log(fileName);
         })
@@ -66,7 +66,7 @@ export const readFile = async (filePath, fileName) => {
         throw new Error('FS Operation failed');
     }
 
-    fs.readFile(filePath, {encoding: 'utf-8'}, (err, fileData) => {
+    return fs.readFile(filePath, {encoding: 'utf-8'}, (err, fileData) => {
         if (!err) {
             console.log(fileData);
         }
@@ -86,6 +86,6 @@ export const renameFile = async (fileToRenamePath, fileRenamedPath) => {
         throw new Error('FS Operation failed');
     }
 
-    await fs.renameSync(fileToRenamePath, fileRenamedPath);
+    return fs.renameSync(fileToRenamePath, fileRenamedPath);
 
 }
