@@ -1,19 +1,25 @@
-const fs = require('fs');
-const zlib = require('zlib');
-const path = require('path');
+import fs from 'fs';
+import zlib from 'zlib';
+import path from 'path';
+import {
+    FILE_TO_COMPRESS,
+    FILE_COMPRESSED
+} from '../constants/fileNames.js';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const compress = async () => {
-    const fileNameToCompress = 'fileToCompress.txt';
-    const fileNameCompressed = 'archive.gz';
+    const filePathToCompress = path.join(__dirname, '/files/', FILE_TO_COMPRESS);
+    const filePathCompressed = path.join(__dirname, '/files/', FILE_COMPRESSED);
 
-    const filePathToCompress = path.join(__dirname, '/files/', fileNameToCompress);
-    const filePathCompressed = path.join(__dirname, '/files/', fileNameCompressed);
-
-    fs.createReadStream(filePathToCompress).pipe(zlib.createGzip())
-        .pipe(fs.createWriteStream(filePathCompressed));
-
-    console.log('File Compressed');
+    return Promise.resolve(
+        fs.createReadStream(filePathToCompress)
+        .pipe(zlib.createGzip())
+        .pipe(fs.createWriteStream(filePathCompressed))
+    );
     // Write your code here 
 };
 
-compress();
+await compress();

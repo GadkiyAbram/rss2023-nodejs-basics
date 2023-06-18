@@ -1,4 +1,4 @@
-const {Transform: TransformStream} = require('stream');
+import {Transform as TransformStream} from 'stream';
 
 const transformReverse = () => {
     return new TransformStream({
@@ -17,4 +17,4 @@ const transform = async () => {
     // Write your code here 
 };
 
-transform();
+await transform();

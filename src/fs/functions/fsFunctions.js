@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import utils from '../utils/index.mjs';
-const {checkIfDirExists} = utils;
+const {
+    checkIfDirExists,
+    getPath
+} = utils;
 
 export const createFile = async (filePath, fileText) => {
     if (await checkIfDirExists(filePath)) {
