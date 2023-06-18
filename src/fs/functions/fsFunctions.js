@@ -1,16 +1,17 @@
-const fs = require('fs');
-const path = require('path');
-const {checkIfDirExists} = require('../utils/index');
+import fs from 'fs';
+import path from 'path';
+import utils from '../utils/index.mjs';
+const {checkIfDirExists} = utils;
 
-const createFile = async (fileDir, fileText) => {
-    if (await checkIfDirExists(fileDir)) {
+export const createFile = async (filePath, fileText) => {
+    if (await checkIfDirExists(filePath)) {
         throw new Error('FS Operation failed');
     }
 
-    fs.writeFileSync(fileDir, fileText);
+    fs.writeFileSync(filePath, fileText);
 };
 
-const copyDirectory = async (srcDir, distDir) => {
+export const copyDirectory = async (srcDir, distDir) => {
     if (
         !await checkIfDirExists(srcDir) ||
         await checkIfDirExists(distDir)
@@ -32,7 +33,56 @@ const copyDirectory = async (srcDir, distDir) => {
     }
 };
 
-module.exports = {
-    createFile,
-    copyDirectory
+export const removeFile = async (filePath) => {
+    const fileExists = await checkIfDirExists(filePath);
+
+    if (!fileExists) {
+        throw new Error('FS Operation failed');
+    }
+
+    await fs.unlinkSync(filePath);
+}
+
+export const listFiles = async (filesDirPath) => {
+    const dirExists = await checkIfDirExists(filesDirPath);
+
+    if (!dirExists) {
+        throw new Error('FS Operation failed');
+    }
+
+    fs.readdir(filesDirPath, (err, files) => {
+        files.forEach((fileName) => {
+            console.log(fileName);
+        })
+    });
+}
+
+export const readFile = async (filePath, fileName) => {
+
+    if (!await checkIfDirExists(filePath, fileName)) {
+        throw new Error('FS Operation failed');
+    }
+
+    fs.readFile(filePath, {encoding: 'utf-8'}, (err, fileData) => {
+        if (!err) {
+            console.log(fileData);
+        }
+    });
+}
+
+export const renameFile = async (fileToRenamePath, fileRenamedPath) => {
+    const [
+        fileToRenameExists,
+        fileFinalExists
+    ] = await Promise.all([
+        checkIfDirExists(fileToRenamePath),
+        checkIfDirExists(fileRenamedPath)
+    ]);
+
+    if (!fileToRenameExists || fileFinalExists) {
+        throw new Error('FS Operation failed');
+    }
+
+    await fs.renameSync(fileToRenamePath, fileRenamedPath);
+
 }

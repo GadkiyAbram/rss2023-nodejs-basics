@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 const checkIfDirExists = (fileDir) => {
   return fs.promises.access(fileDir, fs.constants.F_OK)
@@ -6,4 +6,4 @@ const checkIfDirExists = (fileDir) => {
     .catch(() => false)
 }
 
-module.exports = checkIfDirExists;
+export default checkIfDirExists;

@@ -1,13 +1,16 @@
-const fs = require('fs');
-const path = require('path');
-const {checkIfDirExists} = require('./utils');
-const {createFile} = require('../fs/functions/fsFunctions')
+import {fileURLToPath} from 'url';
+import path from 'path';
+import {createFile} from './functions/fsFunctions.js';
+import {FILE_TO_CREATE_TXT} from '../constants/fileNames.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const create = async () => {
   const fileText = 'I am fresh and young';
-  const fileDir = path.join(__dirname, '/files/', 'fresh.txt');
+  const fileDir = path.join(__dirname, '/files/', FILE_TO_CREATE_TXT);
 
-  await Promise.resolve(createFile(fileDir, fileText));
+  return Promise.resolve(createFile(fileDir, fileText));
 
   // if (await checkIfDirExists(fileDir)) {
   //   throw new Error('FS Operation failed');
@@ -16,4 +19,4 @@ const create = async () => {
   // fs.writeFileSync(fileDir, fileText);
 };
 
-create();
+await create();

@@ -1,22 +1,32 @@
-const fs = require('fs');
-const path = require('path');
-const {checkIfDirExists} = require("./utils");
+// const fs = require('fs');
+// const path = require('path');
+// const {checkIfDirExists} = require("./utils");
+
+import {listFiles} from './functions/fsFunctions.js';
+import {fileURLToPath} from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const list = async () => {
-    const fileFolder = path.join(__dirname, '/files');
+    const fileToRemovePath = path.join(__dirname, '/files');
 
-    const dirExists = await checkIfDirExists(fileFolder);
+    return Promise.resolve(listFiles(fileToRemovePath));
+    // const fileFolder = path.join(__dirname, '/files');
 
-    if (!dirExists) {
-        throw new Error('FS Operation failed');
-    }
-
-    fs.readdir(fileFolder, (err, files) => {
-        files.forEach((fileName) => {
-            console.log(fileName);
-        })
-    })
+    // const dirExists = await checkIfDirExists(fileFolder);
+    //
+    // if (!dirExists) {
+    //     throw new Error('FS Operation failed');
+    // }
+    //
+    // fs.readdir(fileFolder, (err, files) => {
+    //     files.forEach((fileName) => {
+    //         console.log(fileName);
+    //     })
+    // });
     // Write your code here 
 };
 
-list();
+await list();

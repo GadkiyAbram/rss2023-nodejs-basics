@@ -1,13 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-const {checkIfDirExists} = require('./utils');
-const {copyDirectory} = require('./functions/fsFunctions');
+import {copyDirectory} from './functions/fsFunctions.js';
+import {fileURLToPath} from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const copy = async () => {
   const srcDir = path.join(__dirname, '/files');
   const distDir = path.join(__dirname, '/files_copy');
 
-  await Promise.resolve(copyDirectory(srcDir, distDir))
+  return Promise.resolve(copyDirectory(srcDir, distDir))
 
   // try {
   //   await copyDirectory(srcDir, newDir);
@@ -38,4 +40,4 @@ const copy = async () => {
 //   }
 // }
 
-copy();
+await copy();

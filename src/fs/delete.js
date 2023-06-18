@@ -1,19 +1,24 @@
-const fs = require('fs');
-const path = require("path");
-const {checkIfDirExists} = require("./utils");
+import {fileURLToPath} from 'url';
+import path from 'path';
+import {removeFile} from './functions/fsFunctions.js';
+import {FILE_TO_REMOVE_TXT} from '../constants/fileNames.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const remove = async () => {
-    const fileToRemove = 'fileToRemove.txt';
-    const fileToRemovePath = path.join(__dirname, '/files/', fileToRemove);
+    const fileToRemovePath = path.join(__dirname, '/files/', FILE_TO_REMOVE_TXT);
 
-    const fileExists = await checkIfDirExists(fileToRemovePath);
+    return Promise.resolve(removeFile(fileToRemovePath));
 
-    if (!fileExists) {
-        throw new Error('FS Operation failed');
-    }
-
-    await fs.unlinkSync(fileToRemovePath);
+    // const fileExists = await checkIfDirExists(fileToRemovePath);
+    //
+    // if (!fileExists) {
+    //     throw new Error('FS Operation failed');
+    // }
+    //
+    // await fs.unlinkSync(fileToRemovePath);
     // Write your code here 
 };
 
-remove();
+await remove();

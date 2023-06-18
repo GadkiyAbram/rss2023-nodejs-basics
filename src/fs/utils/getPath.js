@@ -1,7 +1,7 @@
-const path = require("path");
+import path from 'path';
 
 const getPath = (fileName) => {
     return path.join(__dirname, '../files/', fileName);
 };
 
-module.exports = getPath;
+export default getPath;
