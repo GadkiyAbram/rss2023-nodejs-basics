@@ -2,8 +2,9 @@ import {Worker} from 'worker_threads';
 import {cpus} from 'os';
 import getPath from '../utils/getPath.js';
 import {WORKER_JS} from '../constants/fileNames.js';
+import {CORE_NUMBER_DEFAULT} from '../constants/threads.js';
 
-const CPU_NUM = cpus().length || 4;
+const CPU_NUM = cpus().length || CORE_NUMBER_DEFAULT;
 let number = 10;
 
 const fileUrl = import.meta.url;
