@@ -17,3 +17,6 @@ export const FILE_COMPRESSED = 'archive.gz';
 
 // wt
 export const WORKER_JS = 'worker.js';
+
+// cp
+export const SCRIPT_JS = 'script.js';
