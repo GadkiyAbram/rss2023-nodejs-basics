@@ -7,8 +7,8 @@ import {
 const nthFibonacci = (n) => n < 2 ? n : nthFibonacci(n - 1) + nthFibonacci(n - 2);
 
 const sendResult = (nth) => {
+   // This function sends result of nthFibonacci computations to main thread
    return nthFibonacci(nth);
-    // This function sends result of nthFibonacci computations to main thread
 };
 
 parentPort.postMessage(sendResult(workerData.nth));

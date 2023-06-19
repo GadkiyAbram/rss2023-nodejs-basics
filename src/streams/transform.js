@@ -14,7 +14,6 @@ const transform = async () => {
     const reversed = transformReverse();
 
     process.stdin.pipe(reversed).pipe(process.stdout);
-    // Write your code here 
 };
 
 await transform();

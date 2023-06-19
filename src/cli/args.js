@@ -5,7 +5,6 @@ const parseArgs = () => {
         const prop = args[i].replace(/--/g, '')
         console.log(`${prop} is ${args[i + 1]}`)
     }
-    // Write your code here 
 };
 
 parseArgs();
