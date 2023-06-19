@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 const list = async () => {
     const fileToRemovePath = path.join(__dirname, '/files');
 
-    return Promise.resolve(listFiles(fileToRemovePath));
+    return Promise.resolve(listFiles(import.meta.url, '/files'));
     // const fileFolder = path.join(__dirname, '/files');
 
     // const dirExists = await checkIfDirExists(fileFolder);

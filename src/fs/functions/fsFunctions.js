@@ -6,7 +6,9 @@ const {
     getPath
 } = utils;
 
-export const createFile = async (filePath, fileText) => {
+export const createFile = async (fileUrl, filesDir, fileName, fileText) => {
+    const filePath = getPath(fileUrl, filesDir, fileName);
+
     if (await checkIfDirExists(filePath)) {
         throw new Error('FS Operation failed');
     }
@@ -14,13 +16,27 @@ export const createFile = async (filePath, fileText) => {
     return fs.writeFileSync(filePath, fileText);
 };
 
-export const copyDirectory = async (srcDir, distDir) => {
+export const copyDir = async (fileUrl, srcDir, distDir) => {
+    const srcPath = getPath(fileUrl, srcDir);
+    const distPath = getPath(fileUrl, distDir);
+
     if (
-        !await checkIfDirExists(srcDir) ||
-        await checkIfDirExists(distDir)
+        !await checkIfDirExists(srcPath) ||
+        await checkIfDirExists(distPath)
     ) {
         throw new Error('FS Operation failed');
     }
+
+    return copyDirectory(srcPath, distPath);
+}
+
+const copyDirectory = async (srcDir, distDir) => {
+    // if (
+    //     !await checkIfDirExists(srcDir) ||
+    //     await checkIfDirExists(distDir)
+    // ) {
+    //     throw new Error('FS Operation failed');
+    // }
 
     let exists = fs.existsSync(srcDir);
     let stats = exists && fs.statSync(srcDir);
@@ -36,7 +52,8 @@ export const copyDirectory = async (srcDir, distDir) => {
     }
 };
 
-export const removeFile = async (filePath) => {
+export const removeFile = async (fileUrl, fileDir, fileName) => {
+    const filePath = getPath(fileUrl, fileDir, fileName);
     const fileExists = await checkIfDirExists(filePath);
 
     if (!fileExists) {
@@ -46,7 +63,8 @@ export const removeFile = async (filePath) => {
     return fs.unlinkSync(filePath);
 }
 
-export const listFiles = async (filesDirPath) => {
+export const listFiles = async (fileUrl, filesDir) => {
+    const filesDirPath = getPath(fileUrl, filesDir);
     const dirExists = await checkIfDirExists(filesDirPath);
 
     if (!dirExists) {
@@ -60,7 +78,8 @@ export const listFiles = async (filesDirPath) => {
     });
 }
 
-export const readFile = async (filePath, fileName) => {
+export const readFile = async (fileUrl, fileDir, fileName) => {
+    const filePath = getPath(fileUrl, fileDir, fileName);
 
     if (!await checkIfDirExists(filePath, fileName)) {
         throw new Error('FS Operation failed');
@@ -73,7 +92,10 @@ export const readFile = async (filePath, fileName) => {
     });
 }
 
-export const renameFile = async (fileToRenamePath, fileRenamedPath) => {
+export const renameFile = async (fileUrl, fileToRename, fileRenamed) => {
+    const fileToRenamePath = getPath(fileUrl, fileToRename.fileDir, fileToRename.fileName);
+    const fileRenamedPath = getPath(fileUrl, fileRenamed.fileDir, fileRenamed.fileName);
+
     const [
         fileToRenameExists,
         fileFinalExists

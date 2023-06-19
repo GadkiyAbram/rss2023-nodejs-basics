@@ -1,4 +1,4 @@
-import {copyDirectory} from './functions/fsFunctions.js';
+import {copyDir} from './functions/fsFunctions.js';
 import {fileURLToPath} from 'url';
 import path from 'path';
 
@@ -9,7 +9,7 @@ const copy = async () => {
   const srcDir = path.join(__dirname, '/files');
   const distDir = path.join(__dirname, '/files_copy');
 
-  return Promise.resolve(copyDirectory(srcDir, distDir))
+  return Promise.resolve(copyDir(import.meta.url, '/files', '/files_copy'))
 
   // try {
   //   await copyDirectory(srcDir, newDir);

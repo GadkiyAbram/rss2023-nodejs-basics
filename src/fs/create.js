@@ -10,7 +10,12 @@ const create = async () => {
   const fileText = 'I am fresh and young';
   const fileDir = path.join(__dirname, '/files/', FILE_TO_CREATE_TXT);
 
-  return Promise.resolve(createFile(fileDir, fileText));
+  return Promise.resolve(createFile(
+      import.meta.url,
+      '/files/',
+      FILE_TO_CREATE_TXT,
+      fileText)
+  );
 
   // if (await checkIfDirExists(fileDir)) {
   //   throw new Error('FS Operation failed');

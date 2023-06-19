@@ -11,10 +11,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const read = async () => {
-    const fileName = FILE_TO_READ_TXT;
-    const filePath = path.join(__dirname, '/files/', fileName);
+    // const fileName = FILE_TO_READ_TXT;
+    // const filePath = path.join(__dirname, '/files/', fileName);
 
-    return Promise.resolve(readFile(filePath, fileName));
+    return Promise.resolve(readFile(import.meta.url, '/files/', FILE_TO_READ_TXT));
 
     // if (!await checkIfDirExists(filePath, fileName)) {
     //     throw new Error('FS Operation failed');
