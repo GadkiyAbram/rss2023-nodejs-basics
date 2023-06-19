@@ -20,7 +20,7 @@ Command line interface(src/cli)
 
 Modules(src/modules)
 
-    [V] cjsToEsm.cjs refactored properly (10/20) - not sure I'm correct, but I renamed file /files/c.js to /files/c.cjs to display correctly
+    [-] cjsToEsm.cjs refactored properly (10/20) - not sure I'm correct, but I renamed file /files/c.js to /files/c.cjs to display correctly
 
 Hash (src/hash)
 
@@ -46,7 +46,7 @@ Child Processes (src/cp)
 
     [V] spawns child process                (10)
     [V] child process stdin receives input from master process stdin (10)
-    [V] child process stdout sends data to master process stdout    (5/10) - not sure I did implement correctly,
+    [-] child process stdout sends data to master process stdout    (5/10) - not sure I did implement correctly,
         as child process sends me a 'message' data
 
 Total Score: 191 from 206
